@@ -1,0 +1,110 @@
+{
+  "_comment": "Everything a marketer might want to tune lives in this file. Adding a competitor, a search query, or a priority rule never requires touching Python.",
+
+  "settings": {
+    "_comment_lookback": "First run: 21 days builds a baseline. Once scheduled weekly, 7-10 is plenty. The dedupe memory makes overlap harmless.",
+    "lookback_days": 21,
+    "max_items_per_source": 15,
+    "request_timeout_seconds": 10,
+    "state_file": "state.json",
+    "work_dir": "work",
+    "digest_dir": "digests",
+    "user_agent": "signadot-competitive-intel-agent/1.0 (open-source competitive research tool; see repo README)"
+  },
+
+  "competitor_feeds": [
+    {
+      "name": "Telepresence (Ambassador Labs)",
+      "blog_index": "https://www.getambassador.io/blog",
+      "feed_candidates": [
+        "https://www.getambassador.io/blog/rss.xml",
+        "https://www.getambassador.io/feed",
+        "https://blog.getambassador.io/feed"
+      ]
+    },
+    {
+      "name": "mirrord (MetalBear)",
+      "blog_index": "https://metalbear.com/blog/",
+      "feed_candidates": [
+        "https://metalbear.com/blog/rss.xml",
+        "https://metalbear.com/rss.xml",
+        "https://metalbear.com/feed.xml"
+      ]
+    },
+    {
+      "name": "Okteto",
+      "blog_index": "https://www.okteto.com/blog",
+      "feed_candidates": [
+        "https://www.okteto.com/rss.xml",
+        "https://www.okteto.com/blog/rss.xml",
+        "https://www.okteto.com/feed"
+      ]
+    },
+    {
+      "name": "vcluster / Loft Labs",
+      "blog_index": "https://www.vcluster.com/blog",
+      "feed_candidates": [
+        "https://www.vcluster.com/blog/rss.xml",
+        "https://loft.sh/blog/rss.xml",
+        "https://www.vcluster.com/rss.xml"
+      ]
+    },
+    {
+      "name": "Qovery",
+      "blog_index": "https://www.qovery.com/blog",
+      "feed_candidates": [
+        "https://www.qovery.com/rss.xml",
+        "https://www.qovery.com/blog/rss.xml",
+        "https://www.qovery.com/feed"
+      ]
+    },
+    {
+      "name": "Release",
+      "blog_index": "https://release.com/blog",
+      "feed_candidates": [
+        "https://release.com/blog/rss.xml",
+        "https://release.com/rss.xml",
+        "https://release.com/feed"
+      ]
+    }
+  ],
+
+  "hackernews": {
+    "api": "https://hn.algolia.com/api/v1/search_by_date",
+    "hits_per_page": 30,
+    "_comment": "context_terms handle ambiguous words. 'telepresence' also means robots and VR, so a hit only counts if one of these words appears nearby. Empty list = keep everything.",
+    "queries": [
+      { "query": "signadot",                        "context_terms": [] },
+      { "query": "ephemeral environments",          "context_terms": [] },
+      { "query": "preview environments kubernetes", "context_terms": [] },
+      { "query": "telepresence",                    "context_terms": ["kubernetes", "k8s", "cluster", "microservice", "ambassador", "dev environment", "devcontainer"] },
+      { "query": "mirrord",                         "context_terms": [] },
+      { "query": "okteto",                          "context_terms": [] },
+      { "query": "vcluster",                        "context_terms": [] },
+      { "query": "qovery",                          "context_terms": [] }
+    ]
+  },
+
+  "reddit": {
+    "_comment": "One combined OR-query per subreddit keeps this to 4 polite requests per run. Reddit often 403s unauthenticated clients from cloud IPs; the run degrades gracefully and says so in the digest.",
+    "subreddits": ["kubernetes", "devops", "platform_engineering", "sre"],
+    "search_query": "signadot OR mirrord OR okteto OR vcluster OR qovery OR telepresence OR \"ephemeral environments\" OR \"preview environments\"",
+    "time_window": "month",
+    "seconds_between_requests": 2
+  },
+
+  "classification_rules": {
+    "_comment": "Deterministic keyword pre-classifier. Produces a SUGGESTED priority only; the AI review step makes the final call and can override. Rules are checked top to bottom, first match wins. Keywords are case-insensitive substring matches against title + snippet. Imperfect keywords are cheap here, not dangerous.",
+    "high": [
+      { "reason": "Direct Signadot mention",            "keywords": ["signadot"] },
+      { "reason": "Competitor launch / major release",  "keywords": ["announcing", "introducing", "launch", "now available", "general availability", " ga ", "public beta", "v1.0", "2.0 release"] },
+      { "reason": "Pricing change",                     "keywords": ["pricing", "free tier", "price increase", "new plans"] },
+      { "reason": "Funding / M&A",                      "keywords": ["raises", "funding", "series a", "series b", "seed round", "acquired", "acquisition"] },
+      { "reason": "Potential lead: asking for a tool like this", "keywords": ["any recommendations", "what do you use for", "looking for a tool", "alternative to", "how do you test microservices", "how do you handle staging"] }
+    ],
+    "medium": [
+      { "reason": "Competitor content marketing / category think-piece", "keywords": ["how to", "guide", "best practices", "why ", "tutorial", "vs ", "comparison", "platform engineering", "shift left", "inner loop"] }
+    ],
+    "default": "LOW"
+  }
+}

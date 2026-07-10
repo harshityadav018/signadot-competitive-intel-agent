@@ -1,0 +1,5 @@
+# No third-party dependencies.
+# The whole pipeline runs on the Python 3.10+ standard library
+# (urllib, json, xml.etree, email.utils, pathlib).
+# That's a deliberate choice: nothing to install, nothing to break,
+# runs anywhere Python runs.
