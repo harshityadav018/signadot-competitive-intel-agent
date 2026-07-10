@@ -44,7 +44,7 @@ flowchart LR
 Requires Python 3.10+. No dependencies to install.
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/signadot-competitive-intel-agent.git
+git clone https://github.com/harshityadav018/signadot-competitive-intel-agent.git
 cd signadot-competitive-intel-agent
 
 # 1. Fetch and dedupe (prints a per-source log, writes work/new_items_<run>.json)

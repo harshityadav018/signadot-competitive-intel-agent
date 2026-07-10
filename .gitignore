@@ -1,0 +1,14 @@
+# Run artifacts: contain fetched data and dedupe history from real runs
+state.json
+work/
+digests/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS noise
+.DS_Store
+Thumbs.db
