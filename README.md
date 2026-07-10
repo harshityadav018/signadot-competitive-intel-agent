@@ -19,6 +19,8 @@ A real digest from a live run is in [`output/digest_2026-07-08.md`](output/diges
 
 The run that produced this also hit a Reddit 403 and one unreachable site. Both show up in the digest's pipeline-health footer instead of crashing the run, which is the intended behavior.
 
+One behavior worth knowing: the very first run builds a baseline, so undated pages found by the HTML fallback can surface old standing facts (a 2025 acquisition, for example) alongside genuinely new items. The review step labels these as baseline context rather than news, and every run after the first only surfaces items the system has never seen.
+
 ## Architecture
 
 ```mermaid
@@ -60,13 +62,13 @@ python3 make_digest.py                # newest classified_*.json in work/
 # or: python3 make_digest.py work/new_items_<run>.json   (keyword hints only)
 ```
 
-To schedule it weekly: a cron entry like `0 8 * * 1 cd /path/to/repo && python3 fetch_items.py` covers steps 1 and 3, or run the whole loop (including the AI review) as a Cowork scheduled task, where Claude performs step 2 itself.
+To schedule it weekly: a cron entry like `0 8 * * 1 cd /path/to/repo && python3 fetch_items.py` covers steps 1 and 3, or run the whole loop on a schedule inside an agent runtime like Claude, which performs the review step itself.
 
 Note for macOS: if every request fails with `CERTIFICATE_VERIFY_FAILED`, run the `Install Certificates.command` that ships with the python.org installer. One-time fix.
 
 ## How it was built
 
-I designed the pipeline, the decision rules, and the quality bar. Claude (Anthropic's Cowork) wrote the code under my direction, and I reviewed it, debugged the real-world failures (SSL certificates, a blocked network, feed formats that lie), and ran it end to end on live data. That division of labor is the point: this is what agent-based marketing ops looks like in practice, and knowing where AI belongs in a workflow (and where it doesn't) is the skill the project demonstrates.
+I designed the pipeline, the decision rules, and the quality bar. Claude, Anthropic's AI coding agent, wrote the code under my direction, and I reviewed it, debugged the real-world failures (SSL certificates, a blocked network, feed formats that lie), and ran it end to end on live data. That division of labor is the point: this is what agent-based marketing ops looks like in practice, and knowing where AI belongs in a workflow (and where it doesn't) is the skill the project demonstrates.
 
 ## Roadmap
 

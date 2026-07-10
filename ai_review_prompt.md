@@ -42,6 +42,11 @@ Rules:
    think-piece.
 2. Judge relevance to Signadot's business, not general interestingness.
 3. Do not invent facts. If the snippet is thin, summarize only what is there.
-4. Undated items come from HTML scraping and may be older than they look. Say
-   so in the summary if it affects the judgment.
+4. Undated items come from HTML scraping and can be much older than they look,
+   especially on a first run, which baselines every page it has never seen.
+   Before ranking an undated item HIGH, ask whether the event is actually
+   recent. If it is old news (an acquisition from a previous year, an old
+   launch), cap it at MEDIUM, call it "baseline context" in the summary, and
+   never present it as breaking. HIGH is reserved for things that happened
+   recently enough to act on this week.
 5. Reply with ONLY the completed JSON. No preamble, no markdown fences.
