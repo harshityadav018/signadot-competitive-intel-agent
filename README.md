@@ -50,9 +50,9 @@ cd signadot-competitive-intel-agent
 # 1. Fetch and dedupe (prints a per-source log, writes work/new_items_<run>.json)
 python3 fetch_items.py
 
-# 2. AI review: hand work/new_items_<run>.json to an LLM and ask it to add,
-#    per item: "priority", "summary", "priority_reason", and (for HIGH items)
-#    "suggested_response". Save the result as work/classified_<run>.json.
+# 2. AI review: paste ai_review_prompt.md (in this repo) into any LLM along
+#    with work/new_items_<run>.json, and save the reply as
+#    work/classified_<run>.json.
 #    Skipping this step is fine: the digest falls back to keyword-rule hints.
 
 # 3. Render the digest
