@@ -12,10 +12,10 @@ One detail worth calling out: HIGH isn't just competitor news. It includes "some
 
 A real digest from a live run is in [`output/digest_2026-07-08.md`](output/digest_2026-07-08.md). An excerpt:
 
-> **[Telepresence (Ambassador Labs)]** [Gravitee has acquired Ambassador](https://www.gravitee.io/blog/gravitee-acquires-ambassador-to-accelerate-agentic-api-event-management)
-> - Gravitee's acquisition announcement for Ambassador Labs — confirms Telepresence's parent is now an API-management company whose blog no longer covers dev environments at all.
-> - *Why this priority:* Ownership change at a named competitor.
-> - **Suggested response:** Treat Telepresence as a fading competitor: capture its comparison-search traffic and consider outreach content for teams re-evaluating their tooling.
+> **[Qovery]** [The Best AI Coding Agent Sandboxes Compared (2026)](https://www.qovery.com/blog/best-ai-coding-agent-sandboxes-compared) — 2026-06-20
+> - On June 20 Qovery published 'The Best AI Coding Agent Sandboxes Compared (2026)'. They are ranking for 'sandboxes', the exact vocabulary Signadot's product uses, and Signadot is not in the list.
+> - *Why this priority:* Recent, and a direct collision with Signadot's category keyword. Upgraded from MEDIUM on re-audit: keyword occupation compounds weekly.
+> - **Suggested response:** Publish Signadot's own sandbox comparison targeting the same query, and reach out to be included where such lists accept additions.
 
 The run that produced this also hit a Reddit 403 and one unreachable site. Both show up in the digest's pipeline-health footer instead of crashing the run, which is the intended behavior.
 
